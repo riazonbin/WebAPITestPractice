@@ -25,8 +25,8 @@ namespace WebAPITestPractice.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

@@ -26,14 +26,43 @@ namespace WPFWebAPITest
             InitializeComponent();
         }
 
-        private async void Refresh()
+        private async Task Refresh()
         {
-            dgUsers.ItemsSource = await NetManager.Get<List<Users>>("api/Users/GetAllUsers");
+            dgUsers.ItemsSource = await NetManager.Get<List<User>>("api/Users/GetAllUsers");
         }
 
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+        private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            Refresh();
+            await Refresh();
+
+            await GetRoles();
+        }
+
+        private async Task GetRoles()
+        {
+            var rolesList = (await NetManager.Get<List<Role>>("api/Roles/GetAllRoles")).Select(r => r.Name);
+            cbRole.ItemsSource = rolesList;
+        }
+
+        private async void AddButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(tbName.Text == "" || tbAge.Text == "" || cbRole.SelectedItem== null)
+            {
+                return;
+            }
+
+            var role = (await NetManager.Get<Role>($"api/Roles/{cbRole.SelectedItem.ToString()}"));
+
+            var user = new User()
+            {
+                Name = tbName.Text,
+                Age = int.Parse(tbAge.Text),
+                Role_Id = role.Id
+            };
+
+            await NetManager.Post("api/Users/Add", user);
+
+            await Refresh();
         }
     }
 }

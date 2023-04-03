@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFWebAPITest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Loaded="WindowLoaded" ResizeMode="NoResize">
+        Title="MainWindow" Height="600" Width="850" Loaded="WindowLoaded" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -22,12 +22,12 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="Добавление пользователя" FontSize="24"></TextBlock>
             <TextBlock Text="Имя"></TextBlock>
-            <TextBox></TextBox>
+            <TextBox x:Name="tbName"></TextBox>
             <TextBlock Text="Возраст"></TextBlock>
-            <TextBox></TextBox>
+            <TextBox x:Name="tbAge"></TextBox>
             <TextBlock Text="Роль"></TextBlock>
-            <ComboBox Margin="0, 0, 0, 10"></ComboBox>
-            <Button Height="30" Content="Добавить"></Button>
+            <ComboBox Margin="0, 0, 0, 10" Name="cbRole"></ComboBox>
+            <Button Height="30" Content="Добавить" Click="AddButtonClick"></Button>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="10, 0, 0, 0">
@@ -38,10 +38,9 @@
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Lastname}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=Firstname}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Роль" Binding="{Binding Path=Role_Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Возраст" Binding="{Binding Path=Age}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding Path=RoleName}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

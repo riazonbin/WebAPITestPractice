@@ -12,15 +12,18 @@ namespace WebAPITestPractice.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Role
     {
-        public int Id { get; set; }
-        public string Lastname { get; set; }
-        public string Firstname { get; set; }
-        public string Patronymic { get; set; }
-        public int Age { get; set; }
-        public int Role_Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.User = new HashSet<User>();
+        }
     
-        public virtual Roles Roles { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User { get; set; }
     }
 }
