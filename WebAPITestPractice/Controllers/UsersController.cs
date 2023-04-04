@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,36 +24,10 @@ namespace WebAPITestPractice.Controllers
         }
 
         [HttpGet]
-        [Route("api/Roles/GetAllRoles")]
-        public IHttpActionResult GetAllRoles()
+        [Route("api/Users/{id}")]
+        public IHttpActionResult GetUser(int id)
         {
-            return Ok(connection.Role.Select(r => new
-            { r.Id, r.Name}));
-        }
-
-        [HttpGet]
-        [Route("api/Roles/{RoleName}")]
-        public IHttpActionResult GetRole(string RoleName)
-        {
-            var foundedRole = connection.Role.FirstOrDefault(x => x.Name == RoleName);
-
-            if (foundedRole == null)
-            {
-                return BadRequest("Такого пользователя не существует!");
-            }
-
-            return Ok(new
-            {
-                foundedRole.Id,
-                foundedRole.Name
-            });
-        }
-
-        [HttpGet]
-        [Route("api/Users/{Name}")]
-        public IHttpActionResult GetUser(string Name)
-        {
-            var foundedUser = connection.User.FirstOrDefault(x => x.Name == Name);
+            var foundedUser = connection.User.FirstOrDefault(x => x.Id == id);
 
             if(foundedUser == null)
             {
@@ -78,6 +53,38 @@ namespace WebAPITestPractice.Controllers
                 connection.SaveChanges();
             }
             return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/Users/Edit/{id}")]
+        public IHttpActionResult PutUser(int id) 
+        {
+            var user = connection.User.FirstOrDefault(u => u.Id == id);
+
+            if(user == null)
+            {
+                return BadRequest("Пользователь не найден");
+            }
+            connection.Entry(user).State = EntityState.Modified;
+
+            return Ok($"Пользователь {user.Name} изменен");
+        }
+
+        [HttpDelete]
+        [Route("api/Users/Delete/{name}")]
+        public IHttpActionResult DeleteUser(string name)
+        {
+            var user = connection.User.FirstOrDefault(u => u.Name == name);
+
+            if (user == null)
+            {
+                return BadRequest("Пользователь не найден");
+            }
+
+            connection.User.Remove(user);
+            connection.SaveChanges();
+
+            return Ok($"Пользователь {name} удален");
         }
     }
 }
