@@ -57,17 +57,28 @@ namespace WebAPITestPractice.Controllers
 
         [HttpPut]
         [Route("api/Users/Edit/{id}")]
-        public IHttpActionResult PutUser(int id) 
+        public IHttpActionResult PutUser(int id, User user) 
         {
-            var user = connection.User.FirstOrDefault(u => u.Id == id);
+            var foundedUser = connection.User.FirstOrDefault(u => u.Id == id);
 
-            if(user == null)
+            if(foundedUser == null)
             {
                 return BadRequest("Пользователь не найден");
             }
-            connection.Entry(user).State = EntityState.Modified;
 
-            return Ok($"Пользователь {user.Name} изменен");
+            try
+            {
+                foundedUser.Name = user.Name;
+                foundedUser.Age = user.Age;
+                foundedUser.Role_Id = user.Role_Id;
+
+                connection.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest("Произошла ошибка");
+            }
+            return Ok($"Пользователь {foundedUser.Name} изменен");
         }
 
         [HttpDelete]

@@ -4,9 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2359669d11734d99ab90c618f2a7ec5f" Name="Diagram1">
+      <Diagram DiagramId="0336f6d1dd5a4a2c9fcc7e981c914d83" Name="Diagram1">
         <EntityTypeShape EntityType="WebAPIPracticeDBModel.Role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebAPIPracticeDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebAPIPracticeDBModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="WebAPIPracticeDBModel.FK_Users_Roles" ManuallyRouted="false" />
       </Diagram>
